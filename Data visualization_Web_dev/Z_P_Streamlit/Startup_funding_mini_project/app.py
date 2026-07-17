@@ -8,7 +8,62 @@ st.set_page_config(layout="wide",page_title="Startup Analysis")
 
 # dataframe 
 df = pd.read_csv(r'A:\AIML_DEV_FOLDER\Data visualization_Web_dev\Z_P_Streamlit\Startup_funding_mini_project\startup_clean.csv')
+df2 = pd.read_csv(r'A:\AIML_DEV_FOLDER\Data visualization_Web_dev\Z_P_Streamlit\Startup_funding_mini_project\startup_clean.csv')
+def load_overall_analysis ():
+    st.title("overall analysis")
+    # total_invested_amount
+    total = round(df2['amount'].sum())
+    st.metric("Toal", str(total) + "Cr")
+
+
+     # maxed amount
+
+    max_funding = df2.groupby('starup')['amount'].max().sort_values(ascending=False).head(1).values[0]
+    st.metric("Max", str(max_funding) + "Cr") 
+    #average
+    mean_funding = df.groupby('starup')['amount'].sum().mean()
+    st.metric("Mean", str(mean_funding) + "Cr") 
+
+    # total funded startup 
+    nums = df['starup'].nunique()
+    st.metric("total number of funded ", str(nums)  ) 
+
+
+    st.header("Mom graph")
+    temp_df['df']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 df.loc[df['amount'] == 0, 'amount'] = np.random.randint(10, 101, size=(df['amount'] == 0).sum())
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -77,7 +132,9 @@ def load_investor_details(investor):
 option=st.sidebar.selectbox("Select One", ["Overall Analysis", "Start-up", "Investor"])
 
 if option == "Overall Analysis":
-    st.title("Overall Analysis")
+    btn0= st.sidebar.button("show over all analysis")
+    if btn0:
+        load_overall_analysis()
 
 elif option == "Start-up":
     st.sidebar.selectbox("Select Star-UP", sorted(df['starup'].unique().tolist())) # passed all the unique value from startup column
